@@ -11,6 +11,7 @@ jobs:
             - name: Lint
               run: npm run lint
             - name: Generating random number
+              id: random-id
               run: echo "::set-output name=random-id::$RANDOM""
     test:
         needs: lint
@@ -22,6 +23,8 @@ jobs:
               run: npm ci
             - name: Lint
               run: npm run lint
+            - name: Printing ouput
+              run: echo "${{ steps.random-id.outputs.random-id }}"
     deploy:
         needs: test
         runs-on: ubuntu-latest
